@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Exercicio 4</title>
+    <style>
+        #numero {
+            border-radius: 4px;
+            height: 2vw;
+            margin-top: 2vw;
+            margin-left: 1vw;
+        }
+
+        .btn {
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="numero">
+    <button type="button" class="btn btn-primary" id="enviar">Enviar</button>
+    <button type="button" class="btn btn-primary" id="table">Mostrar na tabela</button>
+    <div class="col-4">
+        <table class="table table-bordered m-3">
+            <thead>
+                <tr>
+                    <th scope="col">Nomes</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    //Cria array que irá armazenar os nomes
+    var nomes = []
+    //Armazena o corpo da tabela em uma variavel para adicionar os resultados
+    var tbody = document.querySelector('tbody')
+    //Função para limpar a tabela
+    function limpar() {
+        document.querySelector("tbody tr").remove();
+    }
+    //Função que acontece ao clicar no botão Enviar
+    //Ela apenas salva os elementos no array Nomes e limpa o input
+    document.getElementById('enviar').onclick = function () {
+        //Testa se o input tem algum valor
+        if (document.getElementById('numero').value) {
+            //Testa se é uma string
+            if (isNaN(document.getElementById('numero').value)) {
+                var nome = document.getElementById('numero').value
+                nomes.push(nome)
+                document.getElementById('numero').value = ''
+            } else {
+                //Mostra um alert se for um número
+                alert('Informe um nome válido')
+                document.getElementById('numero').value = ''
+            }
+        } else {
+            //Mostra um alert se o input estiver vazio
+            alert('Informe pelo menos 1 nome')
+        }
+    }
+    //Função que acontece ao clicar no botão Mostrar na tabela
+    document.getElementById('table').onclick = function () {
+        //Testa se existe algum valor armazenado no array
+        if (nomes.length > 0) {
+            //Limpa a tabela
+            while (document.querySelector('td')) {
+                limpar();
+            }
+            //Testa se tem algum valor no input
+            if (document.getElementById('numero').value) {
+                //Testa se é uma string
+                if (isNaN(document.getElementById('numero').value)) {
+                    var nome = document.getElementById('numero').value
+                    nomes.push(nome)
+                    document.getElementById('numero').value = ''
+                } else {
+                    //Mostra um alert se for um número
+                    alert('Informe um nome válido')
+                    document.getElementById('numero').value = ''
+                }
+            }
+            //Pega o tamanho do array e diminui 1
+            var tamanho = nomes.length - 1
+            //Passa por todos os elementos do array em ordem decrescente para mostrar os dados na ordem inversa
+            for (i = tamanho; i >= 0; i--) {
+                var tr = document.createElement('tr')
+                var td = document.createElement('td')
+                td.append(nomes[i])
+                tr.append(td)
+                tbody.append(tr)
+            }
+            //Esvazia o array
+            nomes = []
+        } else {
+            //Mostra um alert se o array estiver vazio
+            alert('Informe pelo menos 1 nome')
+        }
+    }
+
+</script>
+
+</html>

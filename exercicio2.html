@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Exercicio 2</title>
+    <style>
+        p {
+            margin-top: 2vw;
+            margin-left: 1vw;
+        }
+
+        #numero {
+            border-radius: 4px;
+            height: 2vw;
+            margin-left: 1vw;
+        }
+
+        .btn {
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Digite 5 números, separando-os por uma vírgula</p>
+    <input type="text" id="numero">
+    <button type="button" class="btn btn-primary">Enviar</button>
+    <br>
+    <p id="resultado">O maior número digitado é:
+    <p></p>
+    </p>
+</body>
+<script>
+    //Variavel que receberá o maior número
+    var maior = 0
+    //Função que acontece ao clicar no botão
+    document.querySelector('button').onclick = function () {
+        //Testa a variável para ver se tem algum número já registrado
+        if (maior > 0) {
+            document.getElementById('resultado').innerHTML = document.getElementById('resultado').textContent
+                .substring(0, document.getElementById('resultado').textContent.length - 1)
+        }
+        //Pega os números informados pelo usuário
+        var num = document.getElementById('numero').value
+        //Testa se os números foram separados por vírgula
+        if (num.includes(',')) {
+            //Separa os números pela vírgula e transforma em um array
+            var arrayNum = num.split(',')
+            console.log(arrayNum)
+            //Testa se 5 números foram informados
+            if (arrayNum.length == 5) {
+                //Zera a váriavel
+                maior = 0
+                //Passa por todos os elementos do array, testando qual é maior
+                for (i = 0; i < arrayNum.length; i++) {
+                    //Se o elemento no array é maior do que o salvo na variavel, altera o valor 
+                    //da variavel para o maior número
+                    if (arrayNum[i] > maior) {
+                        maior = arrayNum[i]
+                    }
+                }
+                //Adiciona o valor ao paragrafo
+                document.getElementById('resultado').innerHTML = document.getElementById('resultado').textContent + maior
+                //Zera o input
+                document.getElementById('numero').value = ''
+            } else {
+                //Mostra um alert se não foram informados 5 números
+                alert('Você deve informar 5 números')
+            }
+        } else {
+            //Mostra um alert se os números não foram separados por vírgula
+            alert('Separe os números por vírgula')
+            //Zera o input
+            document.getElementById('numero').value = ''
+        }
+    }
+</script>
+
+</html>
